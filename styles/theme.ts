@@ -13,7 +13,9 @@ const colors = {
   brand: {
     900: "#1a365d",
     800: "#153e75",
-    700: "#2a69ac",
+    sun: "#f6b630",
+    sand: "#fef0d5",
+    white: "#ffffff",
   },
 };
 
