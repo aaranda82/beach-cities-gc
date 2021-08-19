@@ -1,6 +1,7 @@
 import { EmailIcon, PhoneIcon } from "@chakra-ui/icons";
 import { Box, Flex, FlexProps, Link, Text } from "@chakra-ui/react";
 import React from "react";
+import InstagramIcon from "./Instagram";
 
 interface FooterProps extends FlexProps {}
 
@@ -19,8 +20,22 @@ const Footer: React.FC<FooterProps> = ({ ...props }) => {
         flexDir={{ base: "column-reverse", lg: "row" }}
         {...props}
       >
-        <Flex justify="center" align="flex-end">
+        <Flex
+          justify="center"
+          align="flex-end"
+          mb={{ base: "1rem", lg: "unset" }}
+        >
+          <Text>Lic# 1068671</Text>
           <Text>Website by A.D. Consulting</Text>
+        </Flex>
+        <Flex
+          justify="center"
+          align="center"
+          mb={{ base: "1rem", lg: "unset" }}
+        >
+          <Link href="https://www.instagram.com/beachcitiesgc/">
+            <InstagramIcon />
+          </Link>
         </Flex>
         <Flex
           flexDir="column"
