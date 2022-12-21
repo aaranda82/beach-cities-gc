@@ -14,3 +14,74 @@ a {
 * {
   box-sizing: border-box;
 }
+
+/* Custom Css */
+
+.flex {
+  display: flex;
+}
+
+.alignCenter {
+  align-items: center;
+}
+
+.justifyCenter {
+  justify-content: center;
+}
+
+.flexColumn {
+  flex-direction: column;
+}
+
+.footer {
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 2rem;
+}
+
+@media screen and (max-width: 62em){
+  .footer {
+    flex-direction: column-reverse;
+    justify-content: center;
+  
+  }
+}
+
+.header {
+  justify-content: space-around;
+  background-color: #ffffff;
+  padding: 1rem;
+}
+
+@media screen and (max-width: 62em){
+  .header {
+    justify-content: space-between;
+  }
+}
+
+.section {
+  margin: 0 2rem 0 2rem;
+  padding: 4rem;
+  border-radius: 2rem;
+  flex-wrap: wrap;
+  box-shadow: 10px 5px 5px lightgrey;
+  width: 100%;
+}
+
+@media screen and (max-width: 62em){
+  .section {
+    padding: 2rem;
+  }
+}
+
+.imageRadius {
+  border-radius: 1rem;
+}
+
+.imageMarginY {
+  margin: 0 2rem 0 2rem;
+}
+
+.imageMarginBottom {
+  margin-bottom: 2rem;
+}

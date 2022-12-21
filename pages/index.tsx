@@ -1,13 +1,13 @@
-import { Flex, Box } from "@chakra-ui/react";
 import type { NextPage } from "next";
 import Head from "next/head";
 import Body from "../src/components/Body";
 import Footer from "../src/components/Footer";
 import Header from "../src/components/Header";
+import { theme } from "../styles/theme";
 
 const Home: NextPage = () => {
   return (
-    <Box>
+    <div>
       <Head>
         <title>Beach Cities General Construction</title>
         <meta
@@ -16,13 +16,19 @@ const Home: NextPage = () => {
         />
         <link rel="icon" href="/favicon_logo.ico" />
       </Head>
-      <Flex flexDir="column">
+      <div className="flex flexColumn">
         <Header />
-        <Box w="100%" h="0.25rem" bgColor="brand.sun" />
+        <div
+          style={{
+            width: "100%",
+            height: "0.25rem",
+            backgroundColor: theme.colors.brand.sun,
+          }}
+        />
         <Body />
         <Footer />
-      </Flex>
-    </Box>
+      </div>
+    </div>
   );
 };
 

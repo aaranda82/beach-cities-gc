@@ -1,35 +1,29 @@
-import { EmailIcon, PhoneIcon } from "@chakra-ui/icons";
-import { Box, Flex, FlexProps, Link, Text } from "@chakra-ui/react";
 import React from "react";
 import InstagramIcon from "./Instagram";
 import Contact, { ContactLink } from "./Contact";
+import { theme } from "../../styles/theme";
 
-interface FooterProps extends FlexProps {}
-
-const Footer: React.FC<FooterProps> = ({ ...props }) => {
+const Footer: React.FC = () => {
   return (
     <>
-      <Box
-        h="1.5rem"
-        bgGradient="linear(to-t, lightgrey 15%, brand.sand 85%)"
+      <div
+        style={{
+          height: "1.5rem",
+          backgroundColor: "linear(to-t, lightgrey 15%, brand.sand 85%)",
+        }}
       />
-      <Flex
+      <div
         id="Contact"
-        bgColor="brand.sun"
-        justify={{ base: "center", lg: "space-around" }}
-        flexDir={{ base: "column-reverse", lg: "row" }}
-        alignItems="center"
-        p="2rem"
-        {...props}
+        className="flex footer alignCenter"
+        style={{ backgroundColor: theme.colors.brand.sun }}
       >
-        <Text>Lic# 1068671</Text>
+        <p>Lic# 1068671</p>
         <ContactLink
           href="https://www.instagram.com/beachcitiesgc/"
           icon={<InstagramIcon />}
-          mb={{ base: "1rem", lg: "0" }}
         />
-        <Contact mb={{ base: "1rem", lg: "0" }} />
-      </Flex>
+        <Contact />
+      </div>
     </>
   );
 };

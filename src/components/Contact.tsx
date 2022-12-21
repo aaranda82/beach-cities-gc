@@ -1,5 +1,3 @@
-import { EmailIcon, PhoneIcon } from "@chakra-ui/icons";
-import { Flex, FlexProps, Text, Link, LinkProps } from "@chakra-ui/react";
 import React from "react";
 
 type ContactInfo = {
@@ -12,38 +10,35 @@ const contactInfo: ContactInfo[] = [
   {
     content: "1 (310) 345 - 0523",
     href: "tel:13103450523",
-    icon: <PhoneIcon mr="1rem" />,
+    icon: <p>phone icon</p>,
   },
   {
     content: "bobby@beachcitiesgc.com",
     href: "mailto:bobby@beachcitiesgc.com",
-    icon: <EmailIcon mr="1rem" />,
+    icon: <p>email icon</p>,
   },
 ];
 
-type ContactLinkProps = ContactInfo & LinkProps;
+type ContactLinkProps = ContactInfo;
 
 export const ContactLink: React.FC<ContactLinkProps> = ({
   content,
   href,
   icon,
-  ...props
 }) => {
   return (
-    <Link href={href} {...props}>
-      <Flex align="center">
+    <a href={href}>
+      <div className="flex alignCenter">
         {icon}
-        {content ? <Text fontSize="1rem">{content}</Text> : null}
-      </Flex>
-    </Link>
+        {content ? <p style={{ fontSize: "1rem" }}>{content}</p> : null}
+      </div>
+    </a>
   );
 };
 
-interface NavProps extends FlexProps {}
-
-const Contact: React.FC<NavProps> = ({ ...props }) => (
-  <Flex justify="center" textAlign="left" {...props}>
-    <Flex flexDir="column">
+const Contact: React.FC = () => (
+  <div style={{ textAlign: "left" }} className="flex justifyCenter">
+    <div className="flex flexColumn">
       {contactInfo.map(({ content, href, icon }, index) => {
         const lastItem = index === contactInfo.length - 1;
         return (
@@ -52,12 +47,11 @@ const Contact: React.FC<NavProps> = ({ ...props }) => (
             content={content}
             href={href}
             icon={icon}
-            mb={!lastItem ? "1rem" : "unset"}
           />
         );
       })}
-    </Flex>
-  </Flex>
+    </div>
+  </div>
 );
 
 export default Contact;

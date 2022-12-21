@@ -1,24 +1,14 @@
-import { Box, Flex, FlexProps, Text } from "@chakra-ui/react";
 import React from "react";
+import { theme } from "../../styles/theme";
 
-interface SectionProps extends FlexProps {}
-
-const Section: React.FC<SectionProps> = ({ children, ...props }) => {
+const Section: React.FC = ({ children }) => {
   return (
-    <Flex
-      my="2rem"
-      p={{ base: "2rem", md: "4rem" }}
-      bgColor="brand.white"
-      borderRadius="2rem"
-      justify="center"
-      align="center"
-      flexWrap="wrap"
-      boxShadow="10px 5px 5px lightgrey"
-      w="100%"
-      {...props}
+    <div
+      className="flex justifyCenter alignCenter section"
+      style={{ backgroundColor: theme.colors.brand.white }}
     >
       {children}
-    </Flex>
+    </div>
   );
 };
 
