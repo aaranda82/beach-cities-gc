@@ -1,42 +1,30 @@
+import Image from "next/image";
 import React from "react";
-import { theme } from "../../styles/theme";
-import Section from "./Section";
+import { images, imageType } from "../constants";
 
-const Body: React.FC = () => {
+const Body = () => {
+  const section =
+    "bg-slate-50 p-6 my-6 w-10/12 rounded-xl flex flex-wrap gap-3 justify-center items-center";
+  const renderImages = (images: imageType[]) =>
+    images.map((img, index) => {
+      return (
+        <Image
+          key={img.alt + index}
+          src={img.src}
+          alt={img.alt}
+          width={600}
+          className="rounded-lg"
+        />
+      );
+    });
   return (
-    <div
-      className="flex justifyCenter"
-      style={{
-        backgroundColor: theme.colors.brand.sand,
-        padding: "0 4rem 0 4rem",
-      }}
-    >
-      <div
-        className="flex justifyCenter alignCenter flexColumn"
-        style={{
-          width: "100%",
-        }}
-      >
-        <Section>
-          <img src="whiteKitchen3.JPG" className="imageRadius" />
-          <img src="whiteKitchen6.JPG" className="imageRadius imageMarginY" />
-          <img src="whiteKitchen7.JPG" className="imageRadius" />
-        </Section>
-        <Section>
-          <img src="blueKitchen3.JPG" className="imageRadius" />
-          <img src="blueKitchen4.JPG" className="imageRadius imageMarginY" />
-          <img
-            src="blueKitchen6.JPG"
-            className="imageRadius imageMarginBottom"
-          />
-          <img src="blueKitchen7.JPG" className="imageRadius" />
-        </Section>
-        <Section>
-          <img src="bathroom1.JPG" className="imageRadius imageMarginBottom" />
-          <img src="bathroom2.JPG" className="imageRadius" />
-        </Section>
-      </div>
-    </div>
+    <>
+      {images.map((set, index) => (
+        <div key={`section-${index}`} className={section}>
+          {renderImages(set)}
+        </div>
+      ))}
+    </>
   );
 };
 

@@ -1,4 +1,7 @@
 import React from "react";
+import { strings } from "../constants";
+import EmailSvg from "../svg/EmailSvg";
+import PhoneSvg from "../svg/PhoneSvg";
 
 type ContactInfo = {
   content?: string;
@@ -6,50 +9,58 @@ type ContactInfo = {
   icon: React.ReactNode;
 };
 
+const parsedPhone = strings.phone
+  .split("")
+  .filter((char) => !isNaN(parseInt(char)))
+  .join("");
+
 const contactInfo: ContactInfo[] = [
   {
-    content: "1 (310) 345 - 0523",
-    href: "tel:13103450523",
-    icon: <p>phone icon</p>,
+    content: strings.phone,
+    href: `tel:1${parsedPhone}`,
+    icon: <PhoneSvg />,
   },
   {
-    content: "bobby@beachcitiesgc.com",
-    href: "mailto:bobby@beachcitiesgc.com",
-    icon: <p>email icon</p>,
+    content: strings.email,
+    href: `mailto:${strings.email}`,
+    icon: <EmailSvg />,
   },
 ];
 
-type ContactLinkProps = ContactInfo;
+type ContactLinkProps = ContactInfo & {
+  hideSpacing?: boolean;
+};
 
 export const ContactLink: React.FC<ContactLinkProps> = ({
   content,
   href,
   icon,
+  hideSpacing = false,
 }) => {
+  const text = "ml-6 text-xs md:text-sm lg:text-base";
+  const container = `flex items-center${hideSpacing ? "" : " mb-2"}`;
   return (
-    <a href={href}>
-      <div className="flex alignCenter">
-        {icon}
-        {content ? <p style={{ fontSize: "1rem" }}>{content}</p> : null}
+    <a href={href} className="flex">
+      <div className={container}>
+        <div>{icon}</div>
+        {content ? <p className={text}>{content}</p> : null}
       </div>
     </a>
   );
 };
 
-const Contact: React.FC = () => (
-  <div style={{ textAlign: "left" }} className="flex justifyCenter">
-    <div className="flex flexColumn">
-      {contactInfo.map(({ content, href, icon }, index) => {
-        const lastItem = index === contactInfo.length - 1;
-        return (
-          <ContactLink
-            key={content}
-            content={content}
-            href={href}
-            icon={icon}
-          />
-        );
-      })}
+const Contact = () => (
+  <div className="flex justify-items-center">
+    <div className="flex flex-col">
+      {contactInfo.map(({ content, href, icon }, index) => (
+        <ContactLink
+          key={content}
+          content={content}
+          href={href}
+          icon={icon}
+          hideSpacing={contactInfo.length - 1 === index}
+        />
+      ))}
     </div>
   </div>
 );

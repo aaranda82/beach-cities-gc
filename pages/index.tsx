@@ -3,7 +3,8 @@ import Head from "next/head";
 import Body from "../src/components/Body";
 import Footer from "../src/components/Footer";
 import Header from "../src/components/Header";
-import { theme } from "../styles/theme";
+
+const Spacer = () => <div className="bg-yellow-500 h-2 w-full" />;
 
 const Home: NextPage = () => {
   return (
@@ -16,16 +17,11 @@ const Home: NextPage = () => {
         />
         <link rel="icon" href="/favicon_logo.ico" />
       </Head>
-      <div className="flex flexColumn">
+      <div className="flex flex-col bg-yellow-200 items-center">
         <Header />
-        <div
-          style={{
-            width: "100%",
-            height: "0.25rem",
-            backgroundColor: theme.colors.brand.sun,
-          }}
-        />
+        <Spacer />
         <Body />
+        <Spacer />
         <Footer />
       </div>
     </div>

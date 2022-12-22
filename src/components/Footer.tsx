@@ -1,30 +1,27 @@
 import React from "react";
-import InstagramIcon from "./Instagram";
+import InstagramSvg from "../svg/InstagramSvg";
 import Contact, { ContactLink } from "./Contact";
-import { theme } from "../../styles/theme";
+import { strings } from "../constants";
 
 const Footer: React.FC = () => {
+  const footerStyle = "flex justify-center flex-1";
+  const container =
+    "flex items-center p-10 bg-slate-50 flex-col w-full md:flex-row md:p-6";
+  const text = `${footerStyle} text-xs md:text-sm lg:text-base`;
   return (
-    <>
-      <div
-        style={{
-          height: "1.5rem",
-          backgroundColor: "linear(to-t, lightgrey 15%, brand.sand 85%)",
-        }}
-      />
-      <div
-        id="Contact"
-        className="flex footer alignCenter"
-        style={{ backgroundColor: theme.colors.brand.sun }}
-      >
-        <p>Lic# 1068671</p>
+    <div id="Contact" className={container}>
+      <p className={text}>{strings.licenseNumber}</p>
+      <div className={`${footerStyle} my-5 md:my-0`}>
         <ContactLink
           href="https://www.instagram.com/beachcitiesgc/"
-          icon={<InstagramIcon />}
+          icon={<InstagramSvg />}
+          hideSpacing
         />
+      </div>
+      <div className={footerStyle}>
         <Contact />
       </div>
-    </>
+    </div>
   );
 };
 
