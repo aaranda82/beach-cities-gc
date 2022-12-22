@@ -17,7 +17,7 @@ const Home: NextPage = () => {
         />
         <link rel="icon" href="/favicon_logo.ico" />
       </Head>
-      <div className="flex flex-col bg-yellow-200 items-center">
+      <div className="flex flex-col bg-amber-100 items-center">
         <Header />
         <Spacer />
         <Body />

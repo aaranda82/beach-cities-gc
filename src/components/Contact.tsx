@@ -37,7 +37,7 @@ export const ContactLink: React.FC<ContactLinkProps> = ({
   icon,
   hideSpacing = false,
 }) => {
-  const text = "ml-6 text-xs md:text-sm lg:text-base";
+  const text = "ml-6 text-xs md:text-sm lg:text-base text-cyan-600";
   const container = `flex items-center${hideSpacing ? "" : " mb-2"}`;
   return (
     <a href={href} className="flex">

@@ -4,7 +4,7 @@ import { images, imageType } from "../constants";
 
 const Body = () => {
   const section =
-    "bg-slate-50 p-6 my-6 w-10/12 rounded-xl flex flex-wrap gap-3 justify-center items-center";
+    "bg-white p-6 my-6 w-10/12 rounded-xl flex flex-wrap gap-3 justify-center items-center shadow-lg";
   const renderImages = (images: imageType[]) =>
     images.map((img, index) => {
       return (

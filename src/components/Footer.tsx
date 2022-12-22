@@ -6,8 +6,8 @@ import { strings } from "../constants";
 const Footer: React.FC = () => {
   const footerStyle = "flex justify-center flex-1";
   const container =
-    "flex items-center p-10 bg-slate-50 flex-col w-full md:flex-row md:p-6";
-  const text = `${footerStyle} text-xs md:text-sm lg:text-base`;
+    "flex items-center p-10 bg-white flex-col w-full md:flex-row md:p-6";
+  const text = `${footerStyle} text-xs md:text-sm lg:text-base text-cyan-600`;
   return (
     <div id="Contact" className={container}>
       <p className={text}>{strings.licenseNumber}</p>
