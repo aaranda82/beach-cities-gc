@@ -1,24 +1,12 @@
-import { Box, Flex, FlexProps, Image, Text } from "@chakra-ui/react";
 import React from "react";
 import Logo from "./Logo";
-import Nav from "./Nav";
+import Contact from "./Contact";
 
-interface HeaderProps extends FlexProps {}
-
-const Header: React.FC<HeaderProps> = ({ ...props }) => (
-  <>
-    <Flex
-      justify="center"
-      align="center"
-      bg="ffffff"
-      flexDir={{ base: "column", md: "row" }}
-      {...props}
-    >
-      <Logo w={{ base: "9.375rem", lg: "12.5rem" }} h="auto" m="1rem" />
-      <Nav />
-    </Flex>
-    <Box w="100%" h="0.25rem" bgColor="brand.sun" />
-  </>
+const Header: React.FC = () => (
+  <div className="flex justify-around items-center p-4 bg-white w-full">
+    <Logo />
+    <Contact />
+  </div>
 );
 
 export default Header;

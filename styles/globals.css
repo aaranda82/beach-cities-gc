@@ -14,3 +14,11 @@ a {
 * {
   box-sizing: border-box;
 }
+
+/* Tailwind css */
+
+@import "tailwindcss/base";
+
+@import "tailwindcss/components";
+
+@import "tailwindcss/utilities";

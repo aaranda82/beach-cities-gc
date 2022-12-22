@@ -1,67 +1,27 @@
-import { EmailIcon, PhoneIcon } from "@chakra-ui/icons";
-import { Box, Flex, FlexProps, Link, Text } from "@chakra-ui/react";
 import React from "react";
-import InstagramIcon from "./Instagram";
+import InstagramSvg from "../svg/InstagramSvg";
+import Contact, { ContactLink } from "./Contact";
+import { strings } from "../constants";
 
-interface FooterProps extends FlexProps {}
-
-const Footer: React.FC<FooterProps> = ({ ...props }) => {
+const Footer: React.FC = () => {
+  const footerStyle = "flex justify-center flex-1";
+  const container =
+    "flex items-center p-10 bg-white flex-col w-full md:flex-row md:p-6";
+  const text = `${footerStyle} text-xs md:text-sm lg:text-base text-cyan-600`;
   return (
-    <>
-      <Box
-        h="1.5rem"
-        bgGradient="linear(to-t, lightgrey 15%, brand.sand 85%)"
-      />
-      <Flex
-        id="Contact"
-        bgColor="brand.sun"
-        justify="space-between"
-        p="2rem"
-        flexDir={{ base: "column-reverse", lg: "row" }}
-        {...props}
-      >
-        <Flex
-          justify="center"
-          align="flex-end"
-          mb={{ base: "1rem", lg: "unset" }}
-        >
-          <Text>Lic# 1068671</Text>
-          <Text>Website by A.D. Consulting</Text>
-        </Flex>
-        <Flex
-          justify="center"
-          align="center"
-          mb={{ base: "1rem", lg: "unset" }}
-        >
-          <Link href="https://www.instagram.com/beachcitiesgc/">
-            <InstagramIcon />
-          </Link>
-        </Flex>
-        <Flex
-          flexDir="column"
-          align="centet"
-          justify="center"
-          mb={{ base: "1rem", lg: "unset" }}
-        >
-          <Link href="tel:13103450523">
-            <Flex align="center" justify={{ base: "center", lg: "unset" }}>
-              <PhoneIcon mr="1rem" />
-              <Text fontSize={{ base: "1rem", md: "2rem" }}>
-                1 (310) 345 - 0523
-              </Text>
-            </Flex>
-          </Link>{" "}
-          <Link href="mailto:bobby@beachcitiesgc.com">
-            <Flex align="center" justify={{ base: "center", lg: "unset" }}>
-              <EmailIcon mr="1rem" />
-              <Text fontSize={{ base: "1rem", md: "2rem" }}>
-                bobby@beachcitiesgc.com
-              </Text>
-            </Flex>
-          </Link>{" "}
-        </Flex>
-      </Flex>
-    </>
+    <div id="Contact" className={container}>
+      <p className={text}>{strings.licenseNumber}</p>
+      <div className={`${footerStyle} my-5 md:my-0`}>
+        <ContactLink
+          href="https://www.instagram.com/beachcitiesgc/"
+          icon={<InstagramSvg />}
+          hideSpacing
+        />
+      </div>
+      <div className={footerStyle}>
+        <Contact />
+      </div>
+    </div>
   );
 };
 

@@ -1,10 +1,20 @@
-import { Image, ImageProps } from "@chakra-ui/react";
-import React from "react";
-import theLogo from "../../public/logo.jpg";
-interface LogoProps extends ImageProps {}
+import Image from "next/image";
+import React, { useEffect, useState } from "react";
+import logo from "../../public/logo.jpg";
 
-const Logo: React.FC<LogoProps> = ({ ...props }) => {
-  return <Image src="logo.jpg" {...props} />;
+const Logo: React.FC = () => {
+  const [width, setWidth] = useState(100);
+  const hasWindow = typeof window !== "undefined";
+  useEffect(() => {
+    if (hasWindow && window.innerWidth > 500) setWidth(300);
+  }, [hasWindow]);
+  return (
+    <Image
+      src={logo}
+      alt="Beach cities general construction logo"
+      width={width}
+    />
+  );
 };
 
 export default Logo;

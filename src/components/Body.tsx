@@ -1,35 +1,30 @@
-import { Box, Flex, FlexProps, Image } from "@chakra-ui/react";
+import Image from "next/image";
 import React from "react";
-import Section from "./Section";
+import { images, imageType } from "../constants";
 
-interface BodyProps extends FlexProps {}
-
-const Body: React.FC<BodyProps> = ({ ...props }) => {
+const Body = () => {
+  const section =
+    "bg-white p-6 my-6 w-10/12 rounded-xl flex flex-wrap gap-3 justify-center items-center shadow-lg";
+  const renderImages = (images: imageType[]) =>
+    images.map((img, index) => {
+      return (
+        <Image
+          key={img.alt + index}
+          src={img.src}
+          alt={img.alt}
+          width={600}
+          className="rounded-lg"
+        />
+      );
+    });
   return (
-    <Flex bgColor="brand.sand" justify="center" py="4rem" {...props}>
-      <Flex
-        w={{ base: "100%", lg: "60%" }}
-        flexDir="column"
-        align="center"
-        justify="center"
-      >
-        <Section>
-          <Image src="whiteKitchen3.JPG" borderRadius="1rem" />
-          <Image src="whiteKitchen6.JPG" my="2rem" borderRadius="1rem" />
-          <Image src="whiteKitchen7.JPG" borderRadius="1rem" />
-        </Section>
-        <Section>
-          <Image src="blueKitchen3.JPG" borderRadius="1rem" />
-          <Image src="blueKitchen4.JPG" my="2rem" borderRadius="1rem" />
-          <Image src="blueKitchen6.JPG" mb="2rem" borderRadius="1rem" />
-          <Image src="blueKitchen7.JPG" borderRadius="1rem" />
-        </Section>
-        <Section>
-          <Image src="bathroom1.JPG" mb="2rem" borderRadius="1rem" />
-          <Image src="bathroom2.JPG" borderRadius="1rem" />
-        </Section>
-      </Flex>
-    </Flex>
+    <>
+      {images.map((set, index) => (
+        <div key={`section-${index}`} className={section}>
+          {renderImages(set)}
+        </div>
+      ))}
+    </>
   );
 };
 
