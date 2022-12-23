@@ -9,7 +9,7 @@ import supabase from "../../src/services/supabase";
 
 const Admin = () => {
   const router = useRouter();
-  const [user, setUser] = useState<User | undefined>(undefined);
+  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   const goHome = () => router.push("/");
