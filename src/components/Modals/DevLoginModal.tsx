@@ -1,19 +1,22 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import Button from "../Button";
 import supabase from "../../services/supabase";
 import BaseModal from "./BaseModal";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useRouter } from "next/router";
 import { ErrorText } from "../Utils";
 
-interface LoginModalProps {
+interface DevLoginModalProps {
   setShowModal: Dispatch<SetStateAction<boolean>>;
 }
 
 interface Inputs {
   email: string;
+  password: string;
 }
 
-const LoginModal: React.FC<LoginModalProps> = ({ setShowModal }) => {
+const DevLoginModal: React.FC<DevLoginModalProps> = ({ setShowModal }) => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -23,10 +26,14 @@ const LoginModal: React.FC<LoginModalProps> = ({ setShowModal }) => {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
 
-  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+  const onSubmit: SubmitHandler<Inputs> = async (formData) => {
     setSubmitting(true);
-    const { error } = await supabase.signInWithEmail(data.email);
+    const { data, error } = await supabase.signInWithPassword(
+      formData.email,
+      formData.password
+    );
     if (error) setError(error.message);
+    if (data.user?.role === "authenticated") router.push("/admin");
     setSubmitted(true);
     setSubmitting(false);
   };
@@ -70,8 +77,18 @@ const LoginModal: React.FC<LoginModalProps> = ({ setShowModal }) => {
                   placeholder="Email Address"
                   {...register("email", { required: true })}
                 />
+                <label className="font-bold" htmlFor="email address">
+                  Password
+                </label>
+                <input
+                  type="passowrd"
+                  className="border shadow-md p-2 rounded-md"
+                  placeholder="Password"
+                  {...register("password", { required: true })}
+                />
                 <ErrorText error={error} />
                 <ErrorText error={errors.email?.message} />
+                <ErrorText error={errors.password?.message} />
               </div>
               {submitting ? (
                 <p className="text-2xl font-medium text-cyan-600">
@@ -90,4 +107,4 @@ const LoginModal: React.FC<LoginModalProps> = ({ setShowModal }) => {
   );
 };
 
-export default LoginModal;
+export default DevLoginModal;

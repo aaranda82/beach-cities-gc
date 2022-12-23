@@ -1,10 +1,11 @@
 import React from "react";
 
 interface ButtonProps {
-  onClickFn: () => void;
+  onClickFn?: () => void;
   text: string;
   secondary?: boolean;
   plain?: boolean;
+  submit?: boolean;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -12,6 +13,7 @@ const Button: React.FC<ButtonProps> = ({
   text,
   secondary = false,
   plain = false,
+  submit = false,
 }) => {
   const defaultStyle =
     "inline-flex w-full justify-center rounded-md border px-4 py-2 text-base font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 sm:w-auto sm:text-sm";
@@ -27,7 +29,11 @@ const Button: React.FC<ButtonProps> = ({
     }
   })();
   return (
-    <button type="button" className={dynamicStyles} onClick={onClickFn}>
+    <button
+      type={submit ? "submit" : "button"}
+      className={dynamicStyles}
+      onClick={onClickFn}
+    >
       {text}
     </button>
   );
