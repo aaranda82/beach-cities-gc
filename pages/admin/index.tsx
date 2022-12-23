@@ -5,10 +5,7 @@ import { useEffect, useState } from "react";
 import Button from "../../src/components/Button";
 import FileUpload from "../../src/components/FileUpload";
 import Logo from "../../src/components/Logo";
-
-import SupabaseClient from "../../src/services/supabase";
-
-const supabase = new SupabaseClient();
+import supabase from "../../src/services/supabase";
 
 const Admin = () => {
   const router = useRouter();

@@ -1,13 +1,13 @@
-import { createClient } from "@supabase/supabase-js";
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
 import { SUPABASE_KEY, SUPABASE_URL, ADMIN_URL } from "../constants";
 
 // Create a single supabase client for interacting with your database
 
-class SupabaseClient {
+class Supabase {
   constructor() {
     this.supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
   }
-  supabase;
+  supabase: SupabaseClient<any, "public", any>;
 
   async signInWithEmail(email: string) {
     return await this.supabase.auth.signInWithOtp({
@@ -41,4 +41,4 @@ class SupabaseClient {
   }
 }
 
-export default SupabaseClient;
+export default new Supabase();

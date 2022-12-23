@@ -1,13 +1,11 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import Button from "../Button";
-import SupabaseClient from "../../services/supabase";
+import supabase from "../../services/supabase";
 import BaseModal from "./BaseModal";
 
 interface AdminModalProps {
   setShowModal: Dispatch<SetStateAction<boolean>>;
 }
-
-const supabase = new SupabaseClient();
 
 const AdminModal: React.FC<AdminModalProps> = ({ setShowModal }) => {
   const [email, setEmail] = useState("");

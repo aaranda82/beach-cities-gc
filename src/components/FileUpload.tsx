@@ -1,9 +1,7 @@
 import { useState } from "react";
-import SupabaseClient from "../services/supabase";
+import supabase from "../services/supabase";
 import Button from "./Button";
 import Image from "next/image";
-
-const supabase = new SupabaseClient();
 
 const FileUpload = () => {
   const [file, setFiles] = useState<null | File>(null);

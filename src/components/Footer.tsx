@@ -2,14 +2,12 @@ import React, { Dispatch, SetStateAction } from "react";
 import InstagramSvg from "../svg/InstagramSvg";
 import Contact, { ContactLink } from "./Contact";
 import { strings } from "../constants";
-import SupabaseClient from "../services/supabase";
+import supabase from "../services/supabase";
 import { useRouter } from "next/router";
 
 interface FooterProps {
   setShowModal: Dispatch<SetStateAction<boolean>>;
 }
-
-const supabase = new SupabaseClient();
 
 const Footer: React.FC<FooterProps> = ({ setShowModal }) => {
   const router = useRouter();
