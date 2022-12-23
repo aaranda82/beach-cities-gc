@@ -1,14 +1,3 @@
-import { StaticImageData } from "next/image";
-
-export type imageType = {
-  src: StaticImageData;
-  alt: string;
-};
-
-type ImagesType = imageType[][];
-
-export const images: ImagesType = [];
-
 export const strings = {
   phone: "(310) 345 - 0523",
   email: "bobby@beachcitiesgc.com",
@@ -26,3 +15,6 @@ export const SUPABASE_KEY =
   "";
 
 export const ADMIN_URL = "http://localhost:3000/admin";
+
+export const SUPABASE_IMAGE_URL =
+  "http://localhost:54321/storage/v1/object/public/images/";

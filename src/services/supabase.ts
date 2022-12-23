@@ -1,5 +1,11 @@
 import { createClient, SupabaseClient } from "@supabase/supabase-js";
-import { SUPABASE_KEY, SUPABASE_URL, ADMIN_URL } from "../constants";
+import { Project } from "../../types";
+import {
+  SUPABASE_KEY,
+  SUPABASE_URL,
+  ADMIN_URL,
+  SUPABASE_IMAGE_URL,
+} from "../constants";
 
 // Create a single supabase client for interacting with your database
 
@@ -63,7 +69,7 @@ class Supabase {
       );
 
       if (data && data?.length && uploadedImages.length) {
-        Promise.all(
+        await Promise.all(
           uploadedImages.map(
             async (img) =>
               await this.supabase
@@ -71,11 +77,35 @@ class Supabase {
                 .insert([{ project_id: data?.[0].id, url: img.data?.path }])
           )
         );
+        return await this.supabase
+          .from("projects")
+          .select("id")
+          .eq("id", data?.[0].id);
       }
     } catch (error) {
       console.log(`createProject`);
       console.log(error);
     }
+  }
+
+  async getProjects(): Promise<Project[]> {
+    const proj = await this.supabase.from("projects").select("*");
+    const img = await this.supabase.from("images").select("*");
+    if (proj.data && img.data) {
+      const projects = proj.data.map((p) => {
+        const images = img.data.filter((i) => i.project_id === p.id);
+        return {
+          id: p.id,
+          title: p.title,
+          images: images.map((i) => ({
+            src: SUPABASE_IMAGE_URL + i.url,
+            id: i.id,
+          })),
+        };
+      });
+      return projects.filter((p) => p.images.length);
+    }
+    return [];
   }
 }
 

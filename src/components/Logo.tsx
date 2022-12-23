@@ -13,6 +13,8 @@ const Logo: React.FC<{ customWidth?: number }> = ({ customWidth }) => {
       src={logo}
       alt="Beach cities general construction logo"
       width={width}
+      height={width * 0.7}
+      priority={true}
     />
   );
 };
