@@ -13,24 +13,27 @@ const supabase = new SupabaseClient();
 const Admin = () => {
   const router = useRouter();
   const [user, setUser] = useState<User | undefined>(undefined);
+  const [loading, setLoading] = useState(true);
+
+  const goHome = () => router.push("/");
 
   useEffect(() => {
     supabase.getAuthUser().then(({ data, error }) => {
+      if (!data.user) goHome();
       if (!error) {
         setUser(data.user);
+        setLoading(false);
       }
     });
   }, []);
 
-  return (
+  return loading ? (
+    <div className="flex justify-center items-center h-screen w-full">
+      <h2 className="text-2xl font-bold text-cyan-600">Loading...</h2>
+    </div>
+  ) : (
     <div className="flex flex-col items-center">
       <Logo />
-      {user ? (
-        <div>
-          <p>{user.id}</p>
-          <p>{user.email}</p>
-        </div>
-      ) : null}
 
       <FileUpload />
 
@@ -43,7 +46,7 @@ const Admin = () => {
         text="Sign Out"
         onClickFn={async () => {
           await supabase.signOut();
-          router.push("/");
+          goHome();
         }}
       />
     </div>
