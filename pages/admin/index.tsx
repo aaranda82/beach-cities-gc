@@ -85,7 +85,9 @@ const Admin = () => {
       <div className="flex justify-around items-center w-full py-4">
         <Logo customWidth={150} />
         <div>
-          <p>{`Hi ${user?.user_metadata.name}`}</p>
+          <p className="font-bold text-2xl text-center text-cyan-600 mb-4">{`Hi ${
+            user?.user_metadata.name ? user?.user_metadata.name : "Bobby"
+          }`}</p>
           <div>
             <Button
               secondary
