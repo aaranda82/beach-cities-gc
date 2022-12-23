@@ -108,8 +108,21 @@ class Supabase {
     return [];
   }
 
-  async deleteImage(path: string) {
-    return await this.supabase.storage.from("images").remove([path]);
+  async deleteImage(id: number) {
+    try {
+      const { data, error } = await this.supabase
+        .from("images")
+        .select("url")
+        .eq("id", id);
+      if (error) throw new Error(error.message);
+      if (data) {
+        await this.supabase.storage.from("images").remove([data[0].url]);
+        await this.supabase.from("images").delete().match({ id });
+      }
+    } catch (error) {
+      console.log("Delete Image Error");
+      console.log(error);
+    }
   }
 
   async deleteProject(id: number) {

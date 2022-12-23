@@ -4,21 +4,21 @@ import { useEffect, useState } from "react";
 import { Spacer } from "..";
 import Button from "../../src/components/Button";
 import Logo from "../../src/components/Logo";
-import DeleteModal from "../../src/components/Modals/DeleteModal";
+import DeleteModal, {
+  DeleteModalType,
+} from "../../src/components/Modals/DeleteModal";
 import NewProjectModal from "../../src/components/Modals/NewProjectModal";
 import ProjectPhoto from "../../src/components/ProjectPhoto";
 import supabase from "../../src/services/supabase";
 import { Image, Project } from "../../types";
 
-const renderImages = (images: Image[]) =>
+const renderImages = (images: Image[], deleteImage: (id: number) => void) =>
   images.map((img, index) => (
     <div key={index} className="relative">
       <ProjectPhoto src={img.src} />
       <div
         className="absolute top-4 left-4 cursor-pointer"
-        onClick={() => {
-          console.log("delete image");
-        }}
+        onClick={() => deleteImage(img.id)}
       >
         X
       </div>
@@ -30,7 +30,11 @@ const Admin = () => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [showNewProjModal, setShowNewProjModal] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState<DeleteModalType>({
+    show: false,
+    type: "",
+    id: null,
+  });
   const [projects, setProjects] = useState<Project[]>([]);
 
   const goHome = () => router.push("/");
@@ -41,9 +45,11 @@ const Admin = () => {
   };
 
   const deleteProject = async (id: number) => {
-    await supabase.deleteProject(id);
-    setShowDeleteModal(true);
-    refreshProjects();
+    setShowDeleteModal({ show: true, type: "project", id });
+  };
+
+  const deleteImage = (id: number) => {
+    setShowDeleteModal({ show: true, type: "image", id });
   };
 
   useEffect(() => {
@@ -74,6 +80,7 @@ const Admin = () => {
       <DeleteModal
         showModal={showDeleteModal}
         setShowModal={setShowDeleteModal}
+        refresh={refreshProjects}
       />
       <div className="flex justify-around items-center w-full py-4">
         <Logo customWidth={150} />
@@ -108,7 +115,7 @@ const Admin = () => {
                 text="Delete Project"
                 onClickFn={() => deleteProject(p.id)}
               />
-              {renderImages(p.images)}
+              {renderImages(p.images, deleteImage)}
             </div>
           ))}
         </div>

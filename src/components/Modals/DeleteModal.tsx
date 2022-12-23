@@ -1,50 +1,55 @@
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
-import Button from "../Button";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import supabase from "../../services/supabase";
+import Button from "../Button";
 import BaseModal from "./BaseModal";
-import { useForm, SubmitHandler } from "react-hook-form";
-import { Spacer } from "../../../pages";
-import { ErrorText } from "../Utils";
-
-type Inputs = {
-  projectName: string;
-  files: FileList;
-};
-
-enum errorEnum {
-  required = "required",
-  minLength = "minLength",
-}
-
-const handleErrorText = (error: string | undefined) => {
-  switch (error) {
-    case errorEnum.required:
-      return "Project Name is a required field";
-    case errorEnum.minLength:
-      return "Project Name must be at least 3 charaters long";
-    default:
-      return "";
-  }
-};
-
 interface DeleteModalProps {
-  setShowModal: Dispatch<SetStateAction<boolean>>;
-  showModal: boolean;
+  setShowModal: Dispatch<SetStateAction<DeleteModalType>>;
+  showModal: DeleteModalType;
+  refresh: () => void;
 }
+
+export type DeleteModalType = {
+  show: boolean;
+  type: "" | "project" | "image";
+  id: null | number;
+};
 
 const DeleteModal: React.FC<DeleteModalProps> = ({
   setShowModal,
   showModal,
+  refresh,
 }) => {
-  useEffect(() => {
-    showModal && setTimeout(() => setShowModal(false), 1500);
-  }, [showModal]);
-  return showModal ? (
+  const [deleteConfirmed, setDeleteConfirmed] = useState(false);
+
+  const handleCofirm = async () => {
+    if (showModal.id) {
+      if (showModal.type === "image") {
+        await supabase.deleteImage(showModal.id);
+      } else {
+        await supabase.deleteProject(showModal.id);
+      }
+      setDeleteConfirmed(true);
+      refresh();
+    }
+    setTimeout(() => {
+      setShowModal({ ...showModal, show: false });
+      setDeleteConfirmed(false);
+    }, 1500);
+  };
+
+  return showModal.show ? (
     <BaseModal>
       <div className="p-10 flex items-center flex-col w-full gap-6">
-        <h3 className="text-cyan-600 text 3xl font-bold text-center">
-          Delete Successful!
-        </h3>
+        {deleteConfirmed ? (
+          <h3 className="text-cyan-600 text 3xl font-bold text-center">
+            Deleted!
+          </h3>
+        ) : (
+          <>
+            <div>{`Are you sure you want to delete this ${showModal.type}`}</div>
+            <Button text="I'm sure" onClickFn={handleCofirm} />
+          </>
+        )}
       </div>
     </BaseModal>
   ) : null;
