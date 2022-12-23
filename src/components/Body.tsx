@@ -1,35 +1,35 @@
-import { Box, Flex, FlexProps, Image } from "@chakra-ui/react";
-import React from "react";
-import Section from "./Section";
+import React, { useEffect, useState } from "react";
+import { Project } from "../../types";
+import supabase from "../services/supabase";
+import { Image as Img } from "../../types";
+import ProjectPhoto from "./ProjectPhoto";
 
-interface BodyProps extends FlexProps {}
+export const renderImages = (images: Img[]) =>
+  images.map((img, index) => <ProjectPhoto src={img.src} key={index} />);
 
-const Body: React.FC<BodyProps> = ({ ...props }) => {
+const Body = () => {
+  const [projects, setProjects] = useState<Project[]>([]);
+
+  const handleProjects = async () => {
+    return await supabase.getProjects();
+  };
+
+  useEffect(() => {
+    handleProjects().then((proj) => {
+      setProjects(proj);
+    });
+  }, []);
+  const section =
+    "bg-white p-6 my-6 w-10/12 rounded-xl flex flex-wrap gap-3 justify-center items-center shadow-lg";
+
   return (
-    <Flex bgColor="brand.sand" justify="center" py="4rem" {...props}>
-      <Flex
-        w={{ base: "100%", lg: "60%" }}
-        flexDir="column"
-        align="center"
-        justify="center"
-      >
-        <Section>
-          <Image src="whiteKitchen3.JPG" borderRadius="1rem" />
-          <Image src="whiteKitchen6.JPG" my="2rem" borderRadius="1rem" />
-          <Image src="whiteKitchen7.JPG" borderRadius="1rem" />
-        </Section>
-        <Section>
-          <Image src="blueKitchen3.JPG" borderRadius="1rem" />
-          <Image src="blueKitchen4.JPG" my="2rem" borderRadius="1rem" />
-          <Image src="blueKitchen6.JPG" mb="2rem" borderRadius="1rem" />
-          <Image src="blueKitchen7.JPG" borderRadius="1rem" />
-        </Section>
-        <Section>
-          <Image src="bathroom1.JPG" mb="2rem" borderRadius="1rem" />
-          <Image src="bathroom2.JPG" borderRadius="1rem" />
-        </Section>
-      </Flex>
-    </Flex>
+    <>
+      {projects.map((set) => (
+        <div key={set.id} className={section}>
+          {renderImages(set.images)}
+        </div>
+      ))}
+    </>
   );
 };
 
