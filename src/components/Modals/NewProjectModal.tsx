@@ -29,9 +29,13 @@ const handleErrorText = (error: string | undefined) => {
 
 interface NewProjectModalProps {
   setShowModal: Dispatch<SetStateAction<boolean>>;
+  refresh: () => void;
 }
 
-const NewProjectModal: React.FC<NewProjectModalProps> = ({ setShowModal }) => {
+const NewProjectModal: React.FC<NewProjectModalProps> = ({
+  setShowModal,
+  refresh,
+}) => {
   const [uploadSuccessful, setUploadSuccessful] = useState(false);
   const {
     register,
@@ -55,7 +59,8 @@ const NewProjectModal: React.FC<NewProjectModalProps> = ({ setShowModal }) => {
 
   useEffect(() => {
     if (uploadSuccessful) {
-      setTimeout(clearSuccess, 3000);
+      refresh();
+      setTimeout(clearSuccess, 1500);
     }
   }, [uploadSuccessful]);
 
@@ -89,10 +94,8 @@ const NewProjectModal: React.FC<NewProjectModalProps> = ({ setShowModal }) => {
                   {/* PROJECT NAME */}
                   <label>Project Name</label>
                   <input
-                    {...register("projectName", {
-                      required: true,
-                      minLength: 3,
-                    })}
+                    {...register("projectName")}
+                    placeholder="Optional"
                     className="border rounded-md p-2"
                   />
                   <ErrorText

@@ -107,6 +107,23 @@ class Supabase {
     }
     return [];
   }
+
+  async deleteImage(path: string) {
+    return await this.supabase.storage.from("images").remove([path]);
+  }
+
+  async deleteProject(id: number) {
+    const res = await this.supabase
+      .from("images")
+      .select("url")
+      .eq("project_id", id);
+    if (res.data) {
+      const imagesToRemove: string[] = res.data?.map((image) => image.url);
+      await this.supabase.storage.from("images").remove(imagesToRemove);
+      await this.supabase.from("images").delete().match({ project_id: id });
+      await this.supabase.from("projects").delete().match({ id });
+    }
+  }
 }
 
 export default new Supabase();

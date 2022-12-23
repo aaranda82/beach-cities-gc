@@ -1,8 +1,10 @@
 import Image from "next/image";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import logo from "../../public/logo.jpg";
 
 const Logo: React.FC<{ customWidth?: number }> = ({ customWidth }) => {
+  const router = useRouter();
   const [width, setWidth] = useState(customWidth || 100);
   const hasWindow = typeof window !== "undefined";
   useEffect(() => {
@@ -15,6 +17,10 @@ const Logo: React.FC<{ customWidth?: number }> = ({ customWidth }) => {
       width={width}
       height={width * 0.7}
       priority={true}
+      onClick={() => {
+        router.push("/");
+      }}
+      className="cursor-pointer"
     />
   );
 };
