@@ -19,11 +19,11 @@ const Button: React.FC<ButtonProps> = ({
   const dynamicStyles = (() => {
     switch (true) {
       case secondary:
-        return `border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:ring-indigo-500 ${defaultStyle}`;
+        return `border-gray-300 bg-white text-gray-700 hover:bg-gray-50 focus:ring-cyan-500 ${defaultStyle}`;
       case plain:
         return "hover:pointer hover:text-cyan-600 focus:text-cyan-800";
       default:
-        return `border-transparent bg-cyan-600 text-white hover:bg-cyan-700 focus:ring-cyan-500 ${defaultStyle}`;
+        return `border-transparent bg-cyan-600 text-white hover:bg-cyan-700 focus:ring-gray-50 ${defaultStyle}`;
     }
   })();
   return (

@@ -3,11 +3,11 @@ import Button from "../Button";
 import supabase from "../../services/supabase";
 import BaseModal from "./BaseModal";
 
-interface AdminModalProps {
+interface LoginModalProps {
   setShowModal: Dispatch<SetStateAction<boolean>>;
 }
 
-const AdminModal: React.FC<AdminModalProps> = ({ setShowModal }) => {
+const LoginModal: React.FC<LoginModalProps> = ({ setShowModal }) => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [submitted, setSubmitted] = useState(false);
@@ -91,4 +91,4 @@ const AdminModal: React.FC<AdminModalProps> = ({ setShowModal }) => {
   );
 };
 
-export default AdminModal;
+export default LoginModal;
